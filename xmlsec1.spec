@@ -1,7 +1,7 @@
 Summary: Library providing support for "XML Signature" and "XML Encryption" standards
 Name: xmlsec1
 Version: 1.2.6
-Release: 3
+Release: 4
 License: MIT
 Group: Development/Libraries
 Source: ftp://ftp.aleksey.com/pub/xmlsec/releases/xmlsec1-%{version}.tar.gz
@@ -23,8 +23,8 @@ standards "XML Digital Signature" and "XML Encryption".
 Summary: Libraries, includes, etc. to develop applications with XML Digital Signatures and XML Encryption support.
 Group: Development/Libraries 
 Requires: xmlsec1 = %{version}
-Requires: libxml2-devel >= 2.4.24
-Requires: libxslt-devel >= 1.0.20
+Requires: libxml2-devel >= 2.6.0
+Requires: libxslt-devel >= 1.1.0
 Requires: openssl-devel >= 0.9.6
 Requires: zlib-devel 
 
@@ -36,8 +36,8 @@ Signatures and XML Encryption support.
 Summary: OpenSSL crypto plugin for XML Security Library
 Group: Development/Libraries 
 Requires: xmlsec1 = %{version}
-Requires: libxml2 >= 2.4.24
-Requires: libxslt >= 1.0.20
+Requires: libxml2 >= 2.6.0
+Requires: libxslt >= 1.1.0
 Requires: openssl >= 0.9.6
 BuildRequires: openssl-devel >= 0.9.6
 
@@ -57,16 +57,53 @@ Group: Development/Libraries
 Requires: xmlsec1 = %{version}
 Requires: xmlsec1-devel = %{version}
 Requires: xmlsec1-openssl = %{version}
-Requires: libxml2-devel >= 2.4.24
-Requires: libxslt-devel >= 1.0.20
+Requires: libxml2-devel >= 2.6.0
+Requires: libxslt-devel >= 1.1.0
 Requires: openssl >= 0.9.6
 Requires: openssl-devel >= 0.9.6
 
 %description openssl-devel
 Libraries, includes, etc. for developing XML Security applications with OpenSSL
 
-%ifarch disabled
+%package gnutls
+Summary: GNUTls crypto plugin for XML Security Library
+Group: Development/Libraries 
+Requires: xmlsec1 = %{version}
+Requires: libxml2 >= 2.6.0
+Requires: libxslt >= 1.1.0
+Requires: libgcrypt >= 1.2.0
+Requires: gnutls >= 1.0.20
+BuildRequires: libgcrypt-devel >= 1.2.0
+BuildRequires: gnutls-devel >= 1.0.20
 
+%description gnutls
+GNUTls plugin for XML Security Library provides GNUTls based crypto services
+for the xmlsec library
+
+%post gnutls
+/sbin/ldconfig
+
+%postun gnutls
+/sbin/ldconfig
+
+%package gnutls-devel
+Summary: GNUTls crypto plugin for XML Security Library
+Group: Development/Libraries 
+Requires: xmlsec1 = %{version}
+Requires: xmlsec1-devel = %{version}
+Requires: xmlsec1-openssl = %{version}
+Requires: libxml2-devel >= 2.6.0
+Requires: libxslt-devel >= 1.1.0
+Requires: libgcrypt >= 1.2.0
+Requires: gnutls >= 1.0.20
+Requires: libgcrypt-devel >= 1.2.0
+Requires: gnutls-devel >= 1.0.20
+
+%description gnutls-devel
+Libraries, includes, etc. for developing XML Security applications with GNUTls
+
+%ifarch disabled
+# we disable nss due to dependancies/build problems at this point
 %package nss
 Summary: NSS crypto plugin for XML Security Library
 Group: Development/Libraries 
@@ -102,7 +139,7 @@ Libraries, includes, etc. for developing XML Security applications with NSS
 %ifarch disabled
 %configure --with-mozilla-ver=`1.4.1`
 %else
-%configure --without-nss --without-nspr --without-gnutls
+%configure --without-nss --without-nspr
 %endif
 #
 # Note: it seems that this may break on older version of Red Hat,
@@ -166,6 +203,19 @@ rm -fr %{buildroot}
 %{prefix}/lib*/libxmlsec1-openssl.*a
 %{prefix}/lib*/pkgconfig/xmlsec1-openssl.pc
 
+%files gnutls
+%defattr(-, root, root)  
+
+%{prefix}/lib*/libxmlsec1-gnutls.so.*
+%{prefix}/lib*/libxmlsec1-gnutls.so
+
+%files gnutls-devel
+%defattr(-, root, root)  
+
+%{prefix}/include/xmlsec1/xmlsec/gnutls/*.h
+%{prefix}/lib*/libxmlsec1-gnutls.*a
+%{prefix}/lib*/pkgconfig/xmlsec1-gnutls.pc
+
 %ifarch disabled
 %files nss
 %defattr(-, root, root)  
@@ -182,6 +232,8 @@ rm -fr %{buildroot}
 %endif
 
 %changelog
+* Wed Feb  9 2005 Daniel Veillard <veillard@redhat.com> 1.2.6-4
+- Adding support for GNUTls crypto backend
 * Wed Sep  1 2004 Daniel Veillard <veillard@redhat.com> 1.2.6-3
 - adding missing ldconfig calls
 * Thu Aug 26 2004 Daniel Veillard <veillard@redhat.com> 1.2.6-2
