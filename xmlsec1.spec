@@ -1,7 +1,7 @@
 Summary: Library providing support for "XML Signature" and "XML Encryption" standards
 Name: xmlsec1
 Version: 1.2.6
-Release: 2
+Release: 3
 License: MIT
 Group: Development/Libraries
 Source: ftp://ftp.aleksey.com/pub/xmlsec/releases/xmlsec1-%{version}.tar.gz
@@ -44,6 +44,12 @@ BuildRequires: openssl-devel >= 0.9.6
 %description openssl
 OpenSSL plugin for XML Security Library provides OpenSSL based crypto services
 for the xmlsec library
+
+%post openssl
+/sbin/ldconfig
+
+%postun openssl
+/sbin/ldconfig
 
 %package openssl-devel
 Summary: OpenSSL crypto plugin for XML Security Library
@@ -176,7 +182,9 @@ rm -fr %{buildroot}
 %endif
 
 %changelog
-* Thu Aug 26 2004 Daniel Veillard <veillard@redhat.com> 1.2.6-1
+* Wed Sep  1 2004 Daniel Veillard <veillard@redhat.com> 1.2.6-3
+- adding missing ldconfig calls
+* Thu Aug 26 2004 Daniel Veillard <veillard@redhat.com> 1.2.6-2
 - updated with upstream release from Aleksey
 * Mon Jun 21 2004 Daniel Veillard <veillard@redhat.com> 1.2.5-2
 - rebuilt
