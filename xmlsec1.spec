@@ -1,7 +1,7 @@
 Summary: Library providing support for "XML Signature" and "XML Encryption" standards
 Name: xmlsec1
 Version: 1.2.5
-Release: 1
+Release: 2
 License: MIT
 Group: Development/Libraries
 Source: ftp://ftp.aleksey.com/pub/xmlsec/releases/xmlsec1-%{version}.tar.gz
@@ -176,6 +176,8 @@ rm -fr %{buildroot}
 %endif
 
 %changelog
+* Mon Jun 21 2004 Daniel Veillard <veillard@redhat.com> 1.2.5-2
+- rebuilt
 * Mon Apr 19 2004 Daniel Veillard <veillard@redhat.com> 1.2.5-1
 - updated with upstream release from Aleksey
 * Wed Feb 11 2004 Daniel Veillard <veillard@redhat.com> 1.2.4-1
