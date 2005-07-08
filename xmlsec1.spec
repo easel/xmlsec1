@@ -102,6 +102,8 @@ Requires: gnutls-devel >= 1.0.20
 %description gnutls-devel
 Libraries, includes, etc. for developing XML Security applications with GNUTls
 
+# mozilla-nss is nor available on ppc64
+%ifnarch ppc64
 %package nss
 Summary: NSS crypto plugin for XML Security Library
 Group: Development/Libraries 
@@ -127,6 +129,7 @@ Requires: mozilla-nss-devel >= 1.4
 
 %description nss-devel
 Libraries, includes, etc. for developing XML Security applications with NSS
+%endif
 
 %prep
 %setup -q
@@ -208,6 +211,7 @@ rm -fr %{buildroot}
 %{prefix}/lib*/libxmlsec1-gnutls.*a
 %{prefix}/lib*/pkgconfig/xmlsec1-gnutls.pc
 
+%ifnarch ppc64
 %files nss
 %defattr(-, root, root)  
 
@@ -220,6 +224,7 @@ rm -fr %{buildroot}
 %{prefix}/include/xmlsec1/xmlsec/nss/*.h
 %{prefix}/lib*/libxmlsec1-nss.*a
 %{prefix}/lib*/pkgconfig/xmlsec1-nss.pc
+%endif
 
 %changelog
 * Fri Jul  8 2005 Daniel Veillard <veillard@redhat.com> 1.2.8-2
