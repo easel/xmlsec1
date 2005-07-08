@@ -1,7 +1,7 @@
 Summary: Library providing support for "XML Signature" and "XML Encryption" standards
 Name: xmlsec1
 Version: 1.2.8
-Release: 1
+Release: 2
 License: MIT
 Group: Development/Libraries
 Source: ftp://ftp.aleksey.com/pub/xmlsec/releases/xmlsec1-%{version}.tar.gz
@@ -102,8 +102,6 @@ Requires: gnutls-devel >= 1.0.20
 %description gnutls-devel
 Libraries, includes, etc. for developing XML Security applications with GNUTls
 
-%ifarch disabled
-# we disable nss due to dependancies/build problems at this point
 %package nss
 Summary: NSS crypto plugin for XML Security Library
 Group: Development/Libraries 
@@ -130,17 +128,11 @@ Requires: mozilla-nss-devel >= 1.4
 %description nss-devel
 Libraries, includes, etc. for developing XML Security applications with NSS
 
-%endif
-
 %prep
 %setup -q
 
 %build
-%ifarch disabled
-%configure --with-mozilla-ver=`1.4.1`
-%else
-%configure --without-nss --without-nspr
-%endif
+%configure
 #
 # Note: it seems that this may break on older version of Red Hat,
 #       and that replacing the following line with just "make" can
@@ -216,7 +208,6 @@ rm -fr %{buildroot}
 %{prefix}/lib*/libxmlsec1-gnutls.*a
 %{prefix}/lib*/pkgconfig/xmlsec1-gnutls.pc
 
-%ifarch disabled
 %files nss
 %defattr(-, root, root)  
 
@@ -229,9 +220,10 @@ rm -fr %{buildroot}
 %{prefix}/include/xmlsec1/xmlsec/nss/*.h
 %{prefix}/lib*/libxmlsec1-nss.*a
 %{prefix}/lib*/pkgconfig/xmlsec1-nss.pc
-%endif
 
 %changelog
+* Fri Jul  8 2005 Daniel Veillard <veillard@redhat.com> 1.2.8-2
+- Enabling the mozilla-nss crypto backend
 * Fri Jul  8 2005 Daniel Veillard <veillard@redhat.com> 1.2.8-1
 - update from upstream, needed for openoffice
 * Tue Mar  8 2005 Daniel Veillard <veillard@redhat.com> 1.2.7-4
