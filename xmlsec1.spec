@@ -13,6 +13,7 @@ BuildRequires: libxml2-devel >= 2.6.0
 BuildRequires: libxslt-devel >= 1.1.0
 Prefix: %{_prefix}
 Docdir: %{_docdir}
+Patch0: separate_nspr.patch
 
 %description
 XML Security Library is a C library based on LibXML2  and OpenSSL. 
@@ -111,7 +112,9 @@ Requires: xmlsec1 = %{version}
 Requires: libxml2 >= 2.4.24
 Requires: libxslt >= 1.0.20
 Requires: mozilla-nss >= 1.4
+Requires: nspr
 BuildRequires: mozilla-nss-devel >= 1.4
+BuildRequires: nspr-devel
 
 %description nss
 NSS plugin for XML Security Library provides NSS based crypto services
@@ -126,6 +129,7 @@ Requires: xmlsec1-nss = %{version}
 Requires: libxml2-devel >= 2.4.24
 Requires: libxslt-devel >= 1.0.20
 Requires: mozilla-nss-devel >= 1.4
+Requires: nspr-devel
 
 %description nss-devel
 Libraries, includes, etc. for developing XML Security applications with NSS
@@ -133,6 +137,7 @@ Libraries, includes, etc. for developing XML Security applications with NSS
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %configure
@@ -227,8 +232,9 @@ rm -fr %{buildroot}
 %endif
 
 %changelog
-* Mon Aug  8 2005 Tomas Mraz <tmraz@redhat.com> - 1.2.8-3
+* Mon Aug  8 2005 <veillard@redhat.com> 1.2.8-3
 - rebuilt with new gnutls
+- nspr has been split to a separate package
 * Fri Jul  8 2005 Daniel Veillard <veillard@redhat.com> 1.2.8-2
 - Enabling the mozilla-nss crypto backend
 * Fri Jul  8 2005 Daniel Veillard <veillard@redhat.com> 1.2.8-1
