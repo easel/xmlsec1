@@ -1,7 +1,7 @@
 Summary: Library providing support for "XML Signature" and "XML Encryption" standards
 Name: xmlsec1
-Version: 1.2.8
-Release: 3
+Version: 1.2.9
+Release: 1
 License: MIT
 Group: Development/Libraries
 Source: ftp://ftp.aleksey.com/pub/xmlsec/releases/xmlsec1-%{version}.tar.gz
@@ -232,6 +232,8 @@ rm -fr %{buildroot}
 %endif
 
 %changelog
+* Tue Sep 20 2005 <veillard@redhat.com> 1.2.9-1
+- update from upstream, release done in July
 * Mon Aug  8 2005 <veillard@redhat.com> 1.2.8-3
 - rebuilt with new gnutls
 - nspr has been split to a separate package
