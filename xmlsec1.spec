@@ -1,7 +1,7 @@
 Summary: Library providing support for "XML Signature" and "XML Encryption" standards
 Name: xmlsec1
 Version: 1.2.9
-Release: 3.1
+Release: 4
 License: MIT
 Group: Development/Libraries
 Source: ftp://ftp.aleksey.com/pub/xmlsec/releases/xmlsec1-%{version}.tar.gz
@@ -13,7 +13,7 @@ BuildRequires: libxml2-devel >= 2.6.0
 BuildRequires: libxslt-devel >= 1.1.0
 Prefix: %{_prefix}
 Docdir: %{_docdir}
-Patch0: separate_nspr.patch
+Patch0: separate_nspr_nss.patch
 
 %description
 XML Security Library is a C library based on LibXML2  and OpenSSL. 
@@ -109,9 +109,9 @@ Group: Development/Libraries
 Requires: xmlsec1 = %{version}
 Requires: libxml2 >= 2.4.24
 Requires: libxslt >= 1.0.20
-Requires: mozilla-nss >= 1.4
+Requires: nss >= 3.2
 Requires: nspr
-BuildRequires: mozilla-nss-devel >= 1.4
+BuildRequires: nss-devel >= 3.2
 BuildRequires: nspr-devel
 
 %description nss
@@ -126,7 +126,7 @@ Requires: xmlsec1-devel = %{version}
 Requires: xmlsec1-nss = %{version}
 Requires: libxml2-devel >= 2.4.24
 Requires: libxslt-devel >= 1.0.20
-Requires: mozilla-nss-devel >= 1.4
+Requires: nss-devel >= 3.2
 Requires: nspr-devel
 
 %description nss-devel
@@ -227,6 +227,10 @@ rm -fr %{buildroot}
 %{prefix}/lib*/pkgconfig/xmlsec1-nss.pc
 
 %changelog
+* Thu Dec 15 2005 Christopher Aillon <caillon@redhat.com> 1.2.9-4
+- NSS has been split out of the mozilla package, so require that now
+  and update separate_nspr.patch to account for the new NSS as well
+
 * Fri Dec 09 2005 Jesse Keating <jkeating@redhat.com>
 - rebuilt
 
