@@ -1,7 +1,7 @@
 Summary: Library providing support for "XML Signature" and "XML Encryption" standards
 Name: xmlsec1
 Version: 1.2.9
-Release: 4.2
+Release: 5
 License: MIT
 Group: Development/Libraries
 Source: ftp://ftp.aleksey.com/pub/xmlsec/releases/xmlsec1-%{version}.tar.gz
@@ -171,7 +171,6 @@ rm -fr %{buildroot}
 %doc %{_mandir}/man1/xmlsec1.1*
 
 %{prefix}/lib*/libxmlsec1.so.*
-%{prefix}/lib*/libxmlsec1.so
 %{prefix}/bin/xmlsec1
 
 %files devel
@@ -180,6 +179,7 @@ rm -fr %{buildroot}
 %{prefix}/bin/xmlsec1-config
 %{prefix}/include/xmlsec1/xmlsec/*.h
 %{prefix}/include/xmlsec1/xmlsec/private/*.h
+%{prefix}/lib*/libxmlsec1.so
 %{prefix}/lib*/libxmlsec1.*a
 %{prefix}/lib*/pkgconfig/xmlsec1.pc
 %{prefix}/lib*/xmlsec1Conf.sh
@@ -191,42 +191,45 @@ rm -fr %{buildroot}
 %defattr(-, root, root)  
 
 %{prefix}/lib*/libxmlsec1-openssl.so.*
-%{prefix}/lib*/libxmlsec1-openssl.so
 
 %files openssl-devel
 %defattr(-, root, root)  
 
 %{prefix}/include/xmlsec1/xmlsec/openssl/*.h
 %{prefix}/lib*/libxmlsec1-openssl.*a
+%{prefix}/lib*/libxmlsec1-openssl.so
 %{prefix}/lib*/pkgconfig/xmlsec1-openssl.pc
 
 %files gnutls
 %defattr(-, root, root)  
 
 %{prefix}/lib*/libxmlsec1-gnutls.so.*
-%{prefix}/lib*/libxmlsec1-gnutls.so
 
 %files gnutls-devel
 %defattr(-, root, root)  
 
 %{prefix}/include/xmlsec1/xmlsec/gnutls/*.h
 %{prefix}/lib*/libxmlsec1-gnutls.*a
+%{prefix}/lib*/libxmlsec1-gnutls.so
 %{prefix}/lib*/pkgconfig/xmlsec1-gnutls.pc
 
 %files nss
 %defattr(-, root, root)  
 
 %{prefix}/lib*/libxmlsec1-nss.so.*
-%{prefix}/lib*/libxmlsec1-nss.so
 
 %files nss-devel
 %defattr(-, root, root)  
 
 %{prefix}/include/xmlsec1/xmlsec/nss/*.h
 %{prefix}/lib*/libxmlsec1-nss.*a
+%{prefix}/lib*/libxmlsec1-nss.so
 %{prefix}/lib*/pkgconfig/xmlsec1-nss.pc
 
 %changelog
+* Wed Jun  7 2006 Jeremy Katz <katzj@redhat.com> - 1.2.9-5
+- move .so symlinks to -devel subpackage
+
 * Fri Feb 10 2006 Jesse Keating <jkeating@redhat.com> - 1.2.9-4.2
 - bump again for double-long bug on ppc(64)
 
