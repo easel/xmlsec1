@@ -1,7 +1,7 @@
 Summary: Library providing support for "XML Signature" and "XML Encryption" standards
 Name: xmlsec1
 Version: 1.2.9
-Release: 5
+Release: 6
 License: MIT
 Group: Development/Libraries
 Source: ftp://ftp.aleksey.com/pub/xmlsec/releases/xmlsec1-%{version}.tar.gz
@@ -14,6 +14,7 @@ BuildRequires: libxslt-devel >= 1.1.0
 Prefix: %{_prefix}
 Docdir: %{_docdir}
 Patch0: separate_nspr_nss.patch
+Patch1: multilib.patch
 
 %description
 XML Security Library is a C library based on LibXML2  and OpenSSL. 
@@ -28,6 +29,7 @@ Requires: libxml2-devel >= 2.6.0
 Requires: libxslt-devel >= 1.1.0
 Requires: openssl-devel >= 0.9.6
 Requires: zlib-devel 
+Requires: pkgconfig
 
 %description devel
 Libraries, includes, etc. you can use to develop applications with XML Digital 
@@ -135,6 +137,7 @@ Libraries, includes, etc. for developing XML Security applications with NSS
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %configure
@@ -144,6 +147,9 @@ Libraries, includes, etc. for developing XML Security applications with NSS
 #       fix the problem
 #
 make
+
+# positively ugly but only sane way to get around #192756
+sed 's+/lib64+/$archlib+g' < xmlsec1-config | sed 's+/lib+/$archlib+g' | sed 's+ -DXMLSEC_NO_SIZE_T++' > xmlsec1-config.$$ && mv xmlsec1-config.$$ xmlsec1-config
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -227,6 +233,10 @@ rm -fr %{buildroot}
 %{prefix}/lib*/pkgconfig/xmlsec1-nss.pc
 
 %changelog
+* Thu Jun  8 2006 Daniel Veillard <veillard@redhat.com> - 1.2.9-6
+- Ugly patch and sed based changes to work around #192756 xmlsec1-config
+  multilib problem
+
 * Wed Jun  7 2006 Jeremy Katz <katzj@redhat.com> - 1.2.9-5
 - move .so symlinks to -devel subpackage
 
