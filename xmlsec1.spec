@@ -1,7 +1,7 @@
 Summary: Library providing support for "XML Signature" and "XML Encryption" standards
 Name: xmlsec1
 Version: 1.2.9
-Release: 6
+Release: 7
 License: MIT
 Group: Development/Libraries
 Source: ftp://ftp.aleksey.com/pub/xmlsec/releases/xmlsec1-%{version}.tar.gz
@@ -160,6 +160,7 @@ mkdir -p $RPM_BUILD_ROOT/usr/man/man1
 
 %makeinstall
 #make prefix=$RPM_BUILD_ROOT%{prefix} mandir=$RPM_BUILD_ROOT%{_mandir} install
+rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %clean
 rm -fr %{buildroot}
@@ -233,6 +234,9 @@ rm -fr %{buildroot}
 %{prefix}/lib*/pkgconfig/xmlsec1-nss.pc
 
 %changelog
+* Thu Jun  8 2006 Daniel Veillard <veillard@redhat.com> - 1.2.9-7
+- oops libxmlsec1.la was still there, should fix #171410 and #154142
+
 * Thu Jun  8 2006 Daniel Veillard <veillard@redhat.com> - 1.2.9-6
 - Ugly patch and sed based changes to work around #192756 xmlsec1-config
   multilib problem
