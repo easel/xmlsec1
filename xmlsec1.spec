@@ -184,12 +184,16 @@ rm -fr %{buildroot}
 %defattr(-, root, root)  
 
 %{prefix}/bin/xmlsec1-config
+%dir %{prefix}/include/xmlsec1
+%dir %{prefix}/include/xmlsec1/xmlsec
+%dir %{prefix}/include/xmlsec1/xmlsec/private
 %{prefix}/include/xmlsec1/xmlsec/*.h
 %{prefix}/include/xmlsec1/xmlsec/private/*.h
 %{prefix}/lib*/libxmlsec1.so
 %{prefix}/lib*/libxmlsec1.*a
 %{prefix}/lib*/pkgconfig/xmlsec1.pc
 %{prefix}/lib*/xmlsec1Conf.sh
+%dir %{prefix}/share/doc/xmlsec1
 %{prefix}/share/doc/xmlsec1/* 
 %doc AUTHORS HACKING ChangeLog NEWS README Copyright
 %doc %{_mandir}/man1/xmlsec1-config.1*
@@ -202,6 +206,7 @@ rm -fr %{buildroot}
 %files openssl-devel
 %defattr(-, root, root)  
 
+%dir %{prefix}/include/xmlsec1/xmlsec/openssl
 %{prefix}/include/xmlsec1/xmlsec/openssl/*.h
 %{prefix}/lib*/libxmlsec1-openssl.*a
 %{prefix}/lib*/libxmlsec1-openssl.so
@@ -215,6 +220,7 @@ rm -fr %{buildroot}
 %files gnutls-devel
 %defattr(-, root, root)  
 
+%dir %{prefix}/include/xmlsec1/xmlsec/gnutls
 %{prefix}/include/xmlsec1/xmlsec/gnutls/*.h
 %{prefix}/lib*/libxmlsec1-gnutls.*a
 %{prefix}/lib*/libxmlsec1-gnutls.so
@@ -228,6 +234,7 @@ rm -fr %{buildroot}
 %files nss-devel
 %defattr(-, root, root)  
 
+%dir %{prefix}/include/xmlsec1/xmlsec/nss
 %{prefix}/include/xmlsec1/xmlsec/nss/*.h
 %{prefix}/lib*/libxmlsec1-nss.*a
 %{prefix}/lib*/libxmlsec1-nss.so
