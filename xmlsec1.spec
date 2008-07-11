@@ -1,11 +1,11 @@
 Summary: Library providing support for "XML Signature" and "XML Encryption" standards
 Name: xmlsec1
-Version: 1.2.9
-Release: 10.1
+Version: 1.2.11
+Release: 1
 License: MIT
 Group: Development/Libraries
 Source: ftp://ftp.aleksey.com/pub/xmlsec/releases/xmlsec1-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-root
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 URL: http://www.aleksey.com/xmlsec/
 Requires: libxml2 >= 2.6.0
 Requires: libxslt >= 1.1.0
@@ -13,31 +13,29 @@ BuildRequires: libxml2-devel >= 2.6.0
 BuildRequires: libxslt-devel >= 1.1.0
 Prefix: %{_prefix}
 Docdir: %{_docdir}
-Patch0: separate_nspr_nss.patch
-Patch1: multilib.patch
 
 %description
-XML Security Library is a C library based on LibXML2  and OpenSSL. 
-The library was created with a goal to support major XML security 
-standards "XML Digital Signature" and "XML Encryption". 
+XML Security Library is a C library based on LibXML2  and OpenSSL.
+The library was created with a goal to support major XML security
+standards "XML Digital Signature" and "XML Encryption".
 
-%package devel 
+%package devel
 Summary: Libraries, includes, etc. to develop applications with XML Digital Signatures and XML Encryption support.
-Group: Development/Libraries 
+Group: Development/Libraries
 Requires: xmlsec1 = %{version}
 Requires: libxml2-devel >= 2.6.0
 Requires: libxslt-devel >= 1.1.0
 Requires: openssl-devel >= 0.9.6
-Requires: zlib-devel 
+Requires: zlib-devel
 Requires: pkgconfig
 
 %description devel
-Libraries, includes, etc. you can use to develop applications with XML Digital 
+Libraries, includes, etc. you can use to develop applications with XML Digital
 Signatures and XML Encryption support.
 
 %package openssl
 Summary: OpenSSL crypto plugin for XML Security Library
-Group: Development/Libraries 
+Group: Development/Libraries
 Requires: xmlsec1 = %{version}
 Requires: libxml2 >= 2.6.0
 Requires: libxslt >= 1.1.0
@@ -56,7 +54,7 @@ for the xmlsec library
 
 %package openssl-devel
 Summary: OpenSSL crypto plugin for XML Security Library
-Group: Development/Libraries 
+Group: Development/Libraries
 Requires: xmlsec1 = %{version}
 Requires: xmlsec1-devel = %{version}
 Requires: xmlsec1-openssl = %{version}
@@ -70,7 +68,7 @@ Libraries, includes, etc. for developing XML Security applications with OpenSSL
 
 %package gnutls
 Summary: GNUTls crypto plugin for XML Security Library
-Group: Development/Libraries 
+Group: Development/Libraries
 Requires: xmlsec1 = %{version}
 Requires: libxml2 >= 2.6.0
 Requires: libxslt >= 1.1.0
@@ -91,7 +89,7 @@ for the xmlsec library
 
 %package gnutls-devel
 Summary: GNUTls crypto plugin for XML Security Library
-Group: Development/Libraries 
+Group: Development/Libraries
 Requires: xmlsec1 = %{version}
 Requires: xmlsec1-devel = %{version}
 Requires: xmlsec1-openssl = %{version}
@@ -107,7 +105,7 @@ Libraries, includes, etc. for developing XML Security applications with GNUTls
 
 %package nss
 Summary: NSS crypto plugin for XML Security Library
-Group: Development/Libraries 
+Group: Development/Libraries
 Requires: xmlsec1 = %{version}
 Requires: libxml2 >= 2.4.24
 Requires: libxslt >= 1.0.20
@@ -122,7 +120,7 @@ for the xmlsec library
 
 %package nss-devel
 Summary: NSS crypto plugin for XML Security Library
-Group: Development/Libraries 
+Group: Development/Libraries
 Requires: xmlsec1 = %{version}
 Requires: xmlsec1-devel = %{version}
 Requires: xmlsec1-nss = %{version}
@@ -136,8 +134,6 @@ Libraries, includes, etc. for developing XML Security applications with NSS
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
 
 %build
 %configure
@@ -171,7 +167,7 @@ rm -fr %{buildroot}
 %postun
 /sbin/ldconfig
 
-%files 
+%files
 %defattr(-, root, root)
 
 %doc AUTHORS ChangeLog NEWS README Copyright
@@ -181,7 +177,7 @@ rm -fr %{buildroot}
 %{prefix}/bin/xmlsec1
 
 %files devel
-%defattr(-, root, root)  
+%defattr(-, root, root)
 
 %{prefix}/bin/xmlsec1-config
 %dir %{prefix}/include/xmlsec1
@@ -194,17 +190,18 @@ rm -fr %{buildroot}
 %{prefix}/lib*/pkgconfig/xmlsec1.pc
 %{prefix}/lib*/xmlsec1Conf.sh
 %dir %{prefix}/share/doc/xmlsec1
-%{prefix}/share/doc/xmlsec1/* 
+%{prefix}/share/doc/xmlsec1/*
 %doc AUTHORS HACKING ChangeLog NEWS README Copyright
 %doc %{_mandir}/man1/xmlsec1-config.1*
+%{_datadir}/aclocal/xmlsec1.m4
 
 %files openssl
-%defattr(-, root, root)  
+%defattr(-, root, root)
 
 %{prefix}/lib*/libxmlsec1-openssl.so.*
 
 %files openssl-devel
-%defattr(-, root, root)  
+%defattr(-, root, root)
 
 %dir %{prefix}/include/xmlsec1/xmlsec/openssl
 %{prefix}/include/xmlsec1/xmlsec/openssl/*.h
@@ -213,12 +210,12 @@ rm -fr %{buildroot}
 %{prefix}/lib*/pkgconfig/xmlsec1-openssl.pc
 
 %files gnutls
-%defattr(-, root, root)  
+%defattr(-, root, root)
 
 %{prefix}/lib*/libxmlsec1-gnutls.so.*
 
 %files gnutls-devel
-%defattr(-, root, root)  
+%defattr(-, root, root)
 
 %dir %{prefix}/include/xmlsec1/xmlsec/gnutls
 %{prefix}/include/xmlsec1/xmlsec/gnutls/*.h
@@ -227,12 +224,12 @@ rm -fr %{buildroot}
 %{prefix}/lib*/pkgconfig/xmlsec1-gnutls.pc
 
 %files nss
-%defattr(-, root, root)  
+%defattr(-, root, root)
 
 %{prefix}/lib*/libxmlsec1-nss.so.*
 
 %files nss-devel
-%defattr(-, root, root)  
+%defattr(-, root, root)
 
 %dir %{prefix}/include/xmlsec1/xmlsec/nss
 %{prefix}/include/xmlsec1/xmlsec/nss/*.h
