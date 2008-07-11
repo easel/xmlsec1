@@ -238,6 +238,10 @@ rm -fr %{buildroot}
 %{prefix}/lib*/pkgconfig/xmlsec1-nss.pc
 
 %changelog
+* Fri Jul 11 2008 Daniel Veillard <veillard@redhat.com> - 1.2.11-1
+- update to new upstream release 1.2.11
+- rebuild for gnutls update
+
 * Wed Feb 20 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 1.2.9-10.1
 - Autorebuild for GCC 4.3
 
