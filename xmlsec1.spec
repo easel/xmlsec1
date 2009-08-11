@@ -1,7 +1,7 @@
 Summary: Library providing support for "XML Signature" and "XML Encryption" standards
 Name: xmlsec1
-Version: 1.2.11
-Release: 4
+Version: 1.2.12
+Release: 1%{?dist}%{?extra_release}
 License: MIT
 Group: Development/Libraries
 Source: ftp://ftp.aleksey.com/pub/xmlsec/releases/xmlsec1-%{version}.tar.gz
@@ -22,7 +22,7 @@ standards "XML Digital Signature" and "XML Encryption".
 %package devel
 Summary: Libraries, includes, etc. to develop applications with XML Digital Signatures and XML Encryption support.
 Group: Development/Libraries
-Requires: xmlsec1 = %{version}
+Requires: xmlsec1 = %{version}-%{release}
 Requires: libxml2-devel >= 2.6.0
 Requires: libxslt-devel >= 1.1.0
 Requires: openssl-devel >= 0.9.6
@@ -36,7 +36,7 @@ Signatures and XML Encryption support.
 %package openssl
 Summary: OpenSSL crypto plugin for XML Security Library
 Group: Development/Libraries
-Requires: xmlsec1 = %{version}
+Requires: xmlsec1 = %{version}-%{release}
 Requires: libxml2 >= 2.6.0
 Requires: libxslt >= 1.1.0
 Requires: openssl >= 0.9.6
@@ -55,9 +55,9 @@ for the xmlsec library
 %package openssl-devel
 Summary: OpenSSL crypto plugin for XML Security Library
 Group: Development/Libraries
-Requires: xmlsec1 = %{version}
-Requires: xmlsec1-devel = %{version}
-Requires: xmlsec1-openssl = %{version}
+Requires: xmlsec1 = %{version}-%{release}
+Requires: xmlsec1-devel = %{version}-%{release}
+Requires: xmlsec1-openssl = %{version}-%{release}
 Requires: libxml2-devel >= 2.6.0
 Requires: libxslt-devel >= 1.1.0
 Requires: openssl >= 0.9.6
@@ -69,7 +69,7 @@ Libraries, includes, etc. for developing XML Security applications with OpenSSL
 %package gnutls
 Summary: GNUTls crypto plugin for XML Security Library
 Group: Development/Libraries
-Requires: xmlsec1 = %{version}
+Requires: xmlsec1 = %{version}-%{release}
 Requires: libxml2 >= 2.6.0
 Requires: libxslt >= 1.1.0
 Requires: libgcrypt >= 1.2.0
@@ -90,9 +90,9 @@ for the xmlsec library
 %package gnutls-devel
 Summary: GNUTls crypto plugin for XML Security Library
 Group: Development/Libraries
-Requires: xmlsec1 = %{version}
-Requires: xmlsec1-devel = %{version}
-Requires: xmlsec1-openssl = %{version}
+Requires: xmlsec1 = %{version}-%{release}
+Requires: xmlsec1-devel = %{version}-%{release}
+Requires: xmlsec1-openssl = %{version}-%{release}
 Requires: libxml2-devel >= 2.6.0
 Requires: libxslt-devel >= 1.1.0
 Requires: libgcrypt >= 1.2.0
@@ -106,7 +106,7 @@ Libraries, includes, etc. for developing XML Security applications with GNUTls
 %package nss
 Summary: NSS crypto plugin for XML Security Library
 Group: Development/Libraries
-Requires: xmlsec1 = %{version}
+Requires: xmlsec1 = %{version}-%{release}
 Requires: libxml2 >= 2.4.24
 Requires: libxslt >= 1.0.20
 Requires: nss >= 3.2
@@ -121,9 +121,9 @@ for the xmlsec library
 %package nss-devel
 Summary: NSS crypto plugin for XML Security Library
 Group: Development/Libraries
-Requires: xmlsec1 = %{version}
-Requires: xmlsec1-devel = %{version}
-Requires: xmlsec1-nss = %{version}
+Requires: xmlsec1 = %{version}-%{release}
+Requires: xmlsec1-devel = %{version}-%{release}
+Requires: xmlsec1-nss = %{version}-%{release}
 Requires: libxml2-devel >= 2.4.24
 Requires: libxslt-devel >= 1.0.20
 Requires: nss-devel >= 3.2
@@ -137,11 +137,6 @@ Libraries, includes, etc. for developing XML Security applications with NSS
 
 %build
 %configure
-#
-# Note: it seems that this may break on older version of Red Hat,
-#       and that replacing the following line with just "make" can
-#       fix the problem
-#
 make
 
 # positively ugly but only sane way to get around #192756
@@ -151,11 +146,10 @@ sed 's+/lib64+/$archlib+g' < xmlsec1-config | sed 's+/lib+/$archlib+g' | sed 's+
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/usr/bin
 mkdir -p $RPM_BUILD_ROOT/usr/include/xmlsec1
-mkdir -p $RPM_BUILD_ROOT/usr/lib
+mkdir -p $RPM_BUILD_ROOT%{_libdir}
 mkdir -p $RPM_BUILD_ROOT/usr/man/man1
 
 %makeinstall
-#make prefix=$RPM_BUILD_ROOT%{prefix} mandir=$RPM_BUILD_ROOT%{_mandir} install
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %clean
@@ -238,6 +232,11 @@ rm -fr %{buildroot}
 %{prefix}/lib*/pkgconfig/xmlsec1-nss.pc
 
 %changelog
+* Tue Aug 11 2009 Daniel Veillard <veillard@redhat.com> - 1.2.12-1
+- update to new upstream release 1.2.12
+- includes fix for CVE-2009-0217
+- cleanup spec file
+
 * Mon Jul 27 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
