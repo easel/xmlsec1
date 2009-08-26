@@ -5,6 +5,7 @@ Release: 2%{?dist}%{?extra_release}
 License: MIT
 Group: Development/Libraries
 Source: ftp://ftp.aleksey.com/pub/xmlsec/releases/xmlsec1-%{version}.tar.gz
+Patch1: xmlsec1-1.2.12-openssl10.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 URL: http://www.aleksey.com/xmlsec/
 Requires: libxml2 >= 2.6.0
@@ -134,6 +135,7 @@ Libraries, includes, etc. for developing XML Security applications with NSS
 
 %prep
 %setup -q
+%patch1 -p1 -b .ossl10
 
 %build
 %configure
@@ -232,7 +234,7 @@ rm -fr %{buildroot}
 %{prefix}/lib*/pkgconfig/xmlsec1-nss.pc
 
 %changelog
-* Fri Aug 21 2009 Tomas Mraz <tmraz@redhat.com> - 1.2.12-2
+* Wed Aug 26 2009 Tomas Mraz <tmraz@redhat.com> - 1.2.12-2
 - rebuilt with new openssl
 
 * Tue Aug 11 2009 Daniel Veillard <veillard@redhat.com> - 1.2.12-1
