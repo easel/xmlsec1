@@ -14,6 +14,7 @@ BuildRequires: libgcrypt-devel >= 1.2.0
 BuildRequires: gnutls-devel >= 1.0.20
 BuildRequires: nss-devel >= 3.2
 BuildRequires: nspr-devel
+BuildRequires: libtool-ltdl-devel
 
 %description
 XML Security Library is a C library based on LibXML2  and OpenSSL.
@@ -209,6 +210,9 @@ rm -fr %{buildroot}
 %{_libdir}/pkgconfig/xmlsec1-nss.pc
 
 %changelog
+* Wed Jun  2 2010 Tom "spot" Callaway <tcallawa@redhat.com> - 1.2.16-2
+- add missing BuildRequires: libtool-ltdl-devel
+
 * Wed Jun  2 2010 Tom "spot" Callaway <tcallawa@redhat.com> - 1.2.16-1
 - update to 1.2.16
 - cleanup spec file
