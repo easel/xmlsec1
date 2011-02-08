@@ -1,7 +1,7 @@
 Summary: Library providing support for "XML Signature" and "XML Encryption" standards
 Name: xmlsec1
 Version: 1.2.16
-Release: 2%{?dist}%{?extra_release}
+Release: 3%{?dist}%{?extra_release}
 License: MIT
 Group: Development/Libraries
 Source0: http://www.aleksey.com/xmlsec/download/xmlsec1-%{version}.tar.gz
@@ -210,6 +210,9 @@ rm -fr %{buildroot}
 %{_libdir}/pkgconfig/xmlsec1-nss.pc
 
 %changelog
+* Mon Feb 07 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.16-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
 * Wed Jun  2 2010 Tom "spot" Callaway <tcallawa@redhat.com> - 1.2.16-2
 - add missing BuildRequires: libtool-ltdl-devel
 
