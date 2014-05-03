@@ -1,7 +1,7 @@
 Summary: Library providing support for "XML Signature" and "XML Encryption" standards
 Name: xmlsec1
 Version: 1.2.16
-Release: 2%{?dist}%{?extra_release}
+Release: 5%{?dist}%{?extra_release}
 License: MIT
 Group: Development/Libraries
 Source0: http://www.aleksey.com/xmlsec/download/xmlsec1-%{version}.tar.gz
@@ -172,44 +172,53 @@ rm -fr %{buildroot}
 %files openssl
 %defattr(-, root, root, -)
 %{_libdir}/libxmlsec1-openssl.so.*
+%{_libdir}/libxmlsec1-openssl.so
 
 %files openssl-devel
 %defattr(-, root, root, -)
 %{_includedir}/xmlsec1/xmlsec/openssl/
-%{_libdir}/libxmlsec1-openssl.so
 %{_libdir}/pkgconfig/xmlsec1-openssl.pc
 
 %files gcrypt
 %defattr(-, root, root, -)
 %{_libdir}/libxmlsec1-gcrypt.so.*
+%{_libdir}/libxmlsec1-gcrypt.so
 
 %files gcrypt-devel
 %defattr(-, root, root, -)
 %{_includedir}/xmlsec1/xmlsec/gcrypt/
-%{_libdir}/libxmlsec1-gcrypt.so
 %{_libdir}/pkgconfig/xmlsec1-gcrypt.pc
 
 %files gnutls
 %defattr(-, root, root, -)
 %{_libdir}/libxmlsec1-gnutls.so.*
+%{_libdir}/libxmlsec1-gnutls.so
 
 %files gnutls-devel
 %defattr(-, root, root, -)
 %{_includedir}/xmlsec1/xmlsec/gnutls/
-%{_libdir}/libxmlsec1-gnutls.so
 %{_libdir}/pkgconfig/xmlsec1-gnutls.pc
 
 %files nss
 %defattr(-, root, root, -)
 %{_libdir}/libxmlsec1-nss.so.*
+%{_libdir}/libxmlsec1-nss.so
 
 %files nss-devel
 %defattr(-, root, root, -)
 %{_includedir}/xmlsec1/xmlsec/nss/
-%{_libdir}/libxmlsec1-nss.so
 %{_libdir}/pkgconfig/xmlsec1-nss.pc
 
 %changelog
+* Sat May 03 2014 Erik LaBianca <erik@labianca.org> - 1.2.16-5
+- Backport missing links to unversioned shared library files for EL6 752508 
+
+* Tue Mar 22 2011 Daniel Veillard <veillard@redhat.com> - 1.2.16-4
+- Fix missing links to unversioned shared library files 541599
+
+* Mon Feb 07 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.16-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
 * Wed Jun  2 2010 Tom "spot" Callaway <tcallawa@redhat.com> - 1.2.16-2
 - add missing BuildRequires: libtool-ltdl-devel
 
